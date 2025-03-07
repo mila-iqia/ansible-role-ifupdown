@@ -54,7 +54,10 @@
     mode: 0644
   register: config_interface
   become: true
-  when: ifupdown_network_interfaces | length > 0
+  when: (ifupdown_network_interfaces | length > 0 or ifupdown_network_vlans | length > 0 or
+         ifupdown_network_bridges | length > 0 or ifupdown_network_bonds | length > 0 or
+         ifupdown_ovs_bridges | length > 0 or ifupdown_ovs_bonds | length > 0 or
+         ifupdown_ovs_interfaces | length > 0 or ifupdown_ovs_ports | length > 0)
 
 - name: Restarting Network Interfaces
   ansible.builtin.shell: bash -c "ifdown {{ item.name }} --force && ifup {{ item.name }} --force"
@@ -81,6 +84,16 @@
   with_items: "{{ ifupdown_network_bridges }}"
   when: >
     ifupdown_network_bridges | length > 0 and
+    (ifupdown_enable_configured_interfaces_after_defining or item['enable']) and
+    item['configure'] and
+    config_interface['changed']
+
+- name: Restarting Network Bonds
+  ansible.builtin.shell: bash -c "ifdown {{ item.name }} --force && ifup {{ item.name }} --force"
+  become: true
+  with_items: "{{ ifupdown_network_bonds }}"
+  when: >
+    ifupdown_network_bonds | length > 0 and
     (ifupdown_enable_configured_interfaces_after_defining or item['enable']) and
     item['configure'] and
     config_interface['changed']
