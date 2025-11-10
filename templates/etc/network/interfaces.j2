@@ -293,4 +293,6 @@ dns-nameservers {{ ifupdown_dns_nameservers|join (' ') }}
 dns-search {{ ifupdown_dns_search }}
 {% endif %}
 
+{% if ifupdown_source_interfaces_d | bool %}
 source /etc/network/interfaces.d/*
+{% endif %}
