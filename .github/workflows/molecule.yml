@@ -18,7 +18,10 @@ jobs:
           - ovs
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
+        with:
+          path: "${{ github.repository }}"
+
       - name: Run Molecule
         uses: gofrolist/molecule-action@v2
         with:

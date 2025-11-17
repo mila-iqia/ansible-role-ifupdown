@@ -4,17 +4,19 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: bullseye
-    image: geerlingguy/docker-debian11-ansible:latest
+  # Debian
+  - name: bookworm
+    image: geerlingguy/docker-debian12-ansible:latest
     pre_build_image: true
-  - name: bionic
-    image: geerlingguy/docker-ubuntu1804-ansible:latest
+  - name: trixie
+    image: geerlingguy/docker-debian13-ansible:latest
     pre_build_image: true
-  - name: focal
-    image: geerlingguy/docker-ubuntu2004-ansible:latest
-    pre_build_image: true
+  # Ubuntu
   - name: jammy
     image: geerlingguy/docker-ubuntu2204-ansible:latest
+    pre_build_image: true
+  - name: noble
+    image: geerlingguy/docker-ubuntu2404-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible
