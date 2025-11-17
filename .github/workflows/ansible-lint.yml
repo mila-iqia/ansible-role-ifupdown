@@ -1,4 +1,4 @@
-name: Ansible Lint
+name: ansible-lint
 on:
   push:
     branches:
@@ -13,13 +13,13 @@ on:
 
 jobs:
   check:
-    name: Run ansible-lint
+    name: Ansible Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # needed for progressive mode to work
 
       - name: Run ansible-lint
-        uses: ansible/ansible-lint-action@main
+        uses: ansible/ansible-lint@v25.11.0
