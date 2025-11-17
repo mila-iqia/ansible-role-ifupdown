@@ -186,3 +186,6 @@ ifupdown_ovs_ports:
 
 # Install or not lldp
 ifupdown_install_lldp: false
+
+# Source or not the content of the interfaces.d subdirectory 
+ifupdown_source_interfaces_d: false
